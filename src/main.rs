@@ -6,7 +6,7 @@ mod routes;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let addr = ("127.0.0.1", 8080);
+    let addr = ("0.0.0.0", 8888);
 
     println!("server running at {}:{}", addr.0, addr.1 );
 
