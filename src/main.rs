@@ -1,19 +1,21 @@
-use actix_web::{get, web, App, HttpServer, Responder};
+use actix_web::{App, HttpServer, middleware};
 
-#[get("/hello/{name}")]
-async fn greet(name: web::Path<String>) -> impl Responder {
-    format!("Hello {name} !")
-}
-
+mod handlers;
+mod models;
+mod routes;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let addr = ("127.0.0.1", 8080);
+
+    println!("server running at {}:{}", addr.0, addr.1 );
+
     HttpServer::new(|| {
         App::new()
-            .route("/hello", web::get().to(|| async {"Hello World!"}))
-            .service(greet)
+           .wrap(middleware::Logger::default())
+           .configure(routes::routes)
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(addr)?
     .run()
     .await
 }
