@@ -21,7 +21,13 @@ impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for MyWs {
     }
 }
 
-pub async fn index() -> &'static str {
+pub async fn index() -> impl Responder {
+    HttpResponse::Ok()
+        .content_type("text/html; charset=utf-8")
+        .body(include_str!("../static/index.html"))
+}
+
+pub async fn hello() -> &'static str {
     "Hello world!"
 }
 
