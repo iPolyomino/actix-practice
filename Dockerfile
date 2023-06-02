@@ -1,10 +1,15 @@
-FROM rust
+# development
+FROM rust as develop-stage
+WORKDIR /app
+RUN cargo install cargo-watch
+COPY . .
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY . /usr/src/app
-
+# build
+FROM develop-stage as build-stage
 RUN cargo build --release
 
+# release
+FROM rust:slim-bullseye
+COPY --from=build-stage /app/target/release/api .
 EXPOSE 8888
-CMD ["./target/release/actix-practice"]
+CMD ["/usr/local/bin/api"]
