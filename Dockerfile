@@ -1,5 +1,5 @@
 # development
-FROM rust as develop-stage
+FROM rust:1.70-slim-bullseye as develop-stage
 WORKDIR /app
 RUN cargo install cargo-watch
 COPY . .
@@ -9,7 +9,7 @@ FROM develop-stage as build-stage
 RUN cargo build --release
 
 # release
-FROM rust:slim-bullseye
+FROM rust:1.70-slim-bullseye
 COPY --from=build-stage /app/target/release/api .
 EXPOSE 8888
 CMD ["/usr/local/bin/api"]
