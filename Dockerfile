@@ -6,5 +6,5 @@ COPY . /usr/src/app
 
 RUN cargo build --release
 
-EXPOSE 3000
+EXPOSE 8888
 CMD ["./target/release/actix-practice"]
