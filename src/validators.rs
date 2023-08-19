@@ -8,6 +8,9 @@ pub async fn validator(
     if credentials.user_id() == "user" && credentials.password() == Some("password") {
         Ok(req)
     } else {
-       Err((Error::from(actix_web::error::ErrorUnauthorized("Unauthorized")), req))
+        Err((
+            Error::from(actix_web::error::ErrorUnauthorized("Unauthorized")),
+            req,
+        ))
     }
 }

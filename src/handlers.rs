@@ -41,7 +41,7 @@ pub async fn person(user: web::Path<models::User>) -> impl Responder {
     HttpResponse::Ok().json(models::User { id, name })
 }
 
-pub async fn websocket(req: HttpRequest , stream: web::Payload) -> impl Responder {
-    let resp = ws::start(MyWs{}, &req, stream);
+pub async fn websocket(req: HttpRequest, stream: web::Payload) -> impl Responder {
+    let resp = ws::start(MyWs {}, &req, stream);
     resp
 }
