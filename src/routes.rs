@@ -15,6 +15,6 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
         .service(
             web::scope("/secret")
                 .wrap(auth)
-                .service(fs::Files::new("", "./static/secret")),
+                .service(fs::Files::new("/", "./static/secret").index_file("index.html")),
         );
 }
